@@ -32,15 +32,31 @@ class PolylinesController extends Controller
      */
     public function store(Request $request)
     {
+        // validate data
+        $request->validate([
+            'name' => 'required|unique:polylines,name',
+            'description' => 'required',
+            'geom_polyline' => 'required',
+        ],
+        [
+            'name.required' => 'Name is required',
+            'name.unique' => 'Name already exists',
+            'description.required' => 'Description is required',
+            'geom_polyline.required' => 'Geometry is required',
+        ]);
+
         $data = [
             'geom' => $request->geom_polyline,
             'name' => $request->name,
             'description' => $request->description
         ];
 
-        $this->polylines->create($data);
+        // create data
+        if (!$this->points->create($data)) {
+            return redirect()->route('map')->with('error', 'Polyline failed to add!');
+        }
 
-        return redirect()->route('map');
+        return redirect()->route('map')->with('success', 'Polyline has been added!');
     }
 
     /**
