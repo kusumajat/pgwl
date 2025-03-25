@@ -52,7 +52,7 @@ class PolylinesController extends Controller
         ];
 
         // create data
-        if (!$this->points->create($data)) {
+        if (!$this->polylines->create($data)) {
             return redirect()->route('map')->with('error', 'Polyline failed to add!');
         }
 

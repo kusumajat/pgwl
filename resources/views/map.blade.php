@@ -194,6 +194,77 @@
             }
 
             drawnItems.addLayer(layer);
+
+
         });
+    </script>
+
+    <script>
+         /* GeoJSON Point */
+			var point = L.geoJson(null, {
+				onEachFeature: function (feature, layer) {
+					var popupContent =
+                    "Nama: " + feature.properties.name + "<br>" +
+                    "Deskripsi: " + feature.properties.description + "<br>" +
+						"Provinsi: " + feature.properties.provinsi;
+					layer.on({
+						click: function (e) {
+							point.bindPopup(popupContent);
+						},
+						mouseover: function (e) {
+							point.bindTooltip(feature.properties.kab_kota);
+						},
+					});
+				},
+			});
+			$.getJSON("{{route ('api.points')}}", function (data) {
+				point.addData(data);
+				map.addLayer(point);
+			});
+
+            /* GeoJSON Polyline */
+			var polyline = L.geoJson(null, {
+				onEachFeature: function (feature, layer) {
+					var popupContent =
+                    "Nama: " + feature.properties.name + "<br>" +
+                    "Deskripsi: " + feature.properties.description + "<br>" +
+                    "Panjang (km): " + feature.properties.length_km;
+					layer.on({
+						click: function (e) {
+							polyline.bindPopup(popupContent);
+						},
+						mouseover: function (e) {
+							polyline.bindTooltip(feature.properties.kab_kota);
+						},
+					});
+				},
+			});
+			$.getJSON("{{route ('api.polylines')}}", function (data) {
+                polyline.addData(data);
+				map.addLayer(polyline);
+			});
+
+            /* GeoJSON Polygon */
+			var polygon = L.geoJson(null, {
+				onEachFeature: function (feature, layer) {
+					var popupContent =
+                    "Nama: " + feature.properties.name + "<br>" +
+                    "Deskripsi: " + feature.properties.description + "<br>" +
+                    "Luas (km2): " + feature.properties.luas_km2 + "<br>" +
+                    "Luas (ha): " + feature.properties.luas_hektar;
+					layer.on({
+						click: function (e) {
+							polygon.bindPopup(popupContent);
+						},
+						mouseover: function (e) {
+							polygon.bindTooltip(feature.properties.kab_kota);
+						},
+					});
+				},
+			});
+			$.getJSON("{{route ('api.polygons')}}", function (data) {
+                polygon.addData(data);
+				map.addLayer(polygon);
+			});
     </script>
 @endsection
