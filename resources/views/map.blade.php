@@ -114,7 +114,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Create Polygon</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="{{ route('polygons.store') }}">
+                <form method="POST" action="{{ route('polygons.store') }}" enctype="multipart/form-data">
                     <div class="modal-body">
                         @csrf
 
@@ -250,8 +250,8 @@
                 var popupContent =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
-                    "Panjang (km): " + feature.properties.length_km; + "<br>" +
-                    "<img src='{{  asset('storage/images') }}/" + feature.properties.image + "' width='200' alt=''>"
+                    "Luas (km): " + feature.properties.length_km + "<br>" +
+                    "<img src='{{  asset(path:'storage/images') }}/" + feature.properties.image + "' width='200' alt=''>"
                 layer.on({
                     click: function(e) {
                         polyline.bindPopup(popupContent);
@@ -274,7 +274,8 @@
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
                     "Luas (km2): " + feature.properties.luas_km2 + "<br>" +
-                    "Luas (ha): " + feature.properties.luas_hektar;
+                    "Luas (ha): " + feature.properties.luas_hektar + "<br>" +
+                    "<img src='{{  asset(path:'storage/images') }}/" + feature.properties.image + "' width='200' alt=''>";
                 layer.on({
                     click: function(e) {
                         polygon.bindPopup(popupContent);
