@@ -250,7 +250,7 @@
                 var popupContent =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
-                    "Luas (km): " + feature.properties.length_km + "<br>" +
+                    "Luas (km): " + Number(feature.properties.length_km).toFixed(2) + "<br>" +
                     "<img src='{{  asset(path:'storage/images') }}/" + feature.properties.image + "' width='200' alt=''>"
                 layer.on({
                     click: function(e) {
@@ -273,8 +273,8 @@
                 var popupContent =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
-                    "Luas (km2): " + feature.properties.luas_km2 + "<br>" +
-                    "Luas (ha): " + feature.properties.luas_hektar + "<br>" +
+                    "Luas (km2): " + Number(feature.properties.luas_km2).toFixed(2) + "<br>" +
+                    "Luas (ha): " + Number(feature.properties.luas_hektar).toFixed(2) + "<br>" +
                     "<img src='{{  asset(path:'storage/images') }}/" + feature.properties.image + "' width='200' alt=''>";
                 layer.on({
                     click: function(e) {
