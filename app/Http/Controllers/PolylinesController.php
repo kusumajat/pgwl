@@ -37,7 +37,7 @@ class PolylinesController extends Controller
             'name' => 'required|unique:polylines,name',
             'description' => 'required',
             'geom_polyline' => 'required',
-            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:1024'
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:5120'
         ],
         [
             'name.required' => 'Name is required',

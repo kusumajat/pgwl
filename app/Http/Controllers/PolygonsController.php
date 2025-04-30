@@ -38,7 +38,7 @@ class PolygonsController extends Controller
             'name' => 'required|unique:polygons,name',
             'description' => 'required',
             'geom_polygon' => 'required',
-            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:1024'
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:5120'
         ],
         [
             'name.required' => 'Name is required',
