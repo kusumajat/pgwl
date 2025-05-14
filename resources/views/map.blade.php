@@ -48,7 +48,7 @@
                         <div class="mb-3">
                             <label for="image" class="form-label">Photo</label>
                             <input type="file" class="form-control" id="image_point" name="image"
-                            onchange="document.getElementById('preview-image-point').src = window.URL.createObjectURL(this.files[0])">
+                                onchange="document.getElementById('preview-image-point').src = window.URL.createObjectURL(this.files[0])">
                         </div>
                         <img src="" alt="" id="preview-image-point" class="img-thumbnail" width="400">
                     </div>
@@ -92,9 +92,10 @@
                         <div class="mb-3">
                             <label for="image" class="form-label">Photo</label>
                             <input type="file" class="form-control" id="image_polyline" name="image"
-                            onchange="document.getElementById('preview-image-polyline').src = window.URL.createObjectURL(this.files[0])">
+                                onchange="document.getElementById('preview-image-polyline').src = window.URL.createObjectURL(this.files[0])">
                         </div>
-                        <img src="" alt="" id="preview-image-polyline" class="img-thumbnail" width="400">
+                        <img src="" alt="" id="preview-image-polyline" class="img-thumbnail"
+                            width="400">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -137,9 +138,10 @@
                         <div class="mb-3">
                             <label for="image" class="form-label">Photo</label>
                             <input type="file" class="form-control" id="image_polygon" name="image"
-                            onchange="document.getElementById('preview-image-polygon').src = window.URL.createObjectURL(this.files[0])">
+                                onchange="document.getElementById('preview-image-polygon').src = window.URL.createObjectURL(this.files[0])">
                         </div>
-                        <img src="" alt="" id="preview-image-polygon" class="img-thumbnail" width="400">
+                        <img src="" alt="" id="preview-image-polygon" class="img-thumbnail"
+                            width="400">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -229,14 +231,21 @@
                 var routedelete = "{{ route('points.destroy', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
 
+                var routeedit = "{{ route('points.edit', ':id') }}";
+                routeedit = routeedit.replace(':id', feature.properties.id);
+
                 var popupContent =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
-                    "<img src='{{  asset('storage/images') }}/" + feature.properties.image + "' width='200' alt=''>" + "<br>" +
+                    "<img src='{{ asset('storage/images') }}/" + feature.properties.image +
+                    "' width='200' alt=''>" + "<br>" +
+                    "<div class='d-flex justify-content-between mt-4'>" +
+                    "<a href='" + routeedit + "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
                     "<form method='POST' action='" + routedelete + "'>" +
-                    '@csrf' + '@method("DELETE")' +
-                    "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Point?`)'><i class='fa-regular fa-trash-can'></i></button>" +
-                    "</form>";
+                    '@csrf' + '@method('DELETE')' +
+                    "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Point?`)'><i class='fa-regular fa-trash-can'></i> Delete</button>" +
+                    "</form>" +
+                    "</div>";
                 layer.on({
                     click: function(e) {
                         point.bindPopup(popupContent);
@@ -258,16 +267,22 @@
 
                 var routedelete = "{{ route('polylines.destroy', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
+                var routeedit = "{{ route('polylines.edit', ':id') }}";
+                routeedit = routeedit.replace(':id', feature.properties.id);
 
                 var popupContent =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
                     "Luas (km): " + Number(feature.properties.length_km).toFixed(2) + "<br>" +
-                    "<img src='{{  asset(path:'storage/images') }}/" + feature.properties.image + "' width='200' alt=''>" + "<br>" +
+                    "<img src='{{ asset(path: 'storage/images') }}/" + feature.properties.image +
+                    "' width='200' alt=''>" + "<br>" +
+                    "<div class='d-flex justify-content-between mt-4'>" +
+                    "<a href='" + routeedit + "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
                     "<form method='POST' action='" + routedelete + "'>" +
-                    '@csrf' + '@method("DELETE")' +
+                    '@csrf' + '@method('DELETE')' +
                     "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Polyline?`)'><i class='fa-regular fa-trash-can'></i></button>" +
-                    "</form>";
+                    "</form>" +
+                    "</div>";
                 layer.on({
                     click: function(e) {
                         polyline.bindPopup(popupContent);
@@ -289,17 +304,23 @@
 
                 var routedelete = "{{ route('polygons.destroy', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
+                var routeedit = "{{ route('polygons.edit', ':id') }}";
+                routeedit = routeedit.replace(':id', feature.properties.id);
 
                 var popupContent =
                     "Nama: " + feature.properties.name + "<br>" +
                     "Deskripsi: " + feature.properties.description + "<br>" +
                     "Luas (km2): " + Number(feature.properties.luas_km2).toFixed(2) + "<br>" +
                     "Luas (ha): " + Number(feature.properties.luas_hektar).toFixed(2) + "<br>" +
-                    "<img src='{{  asset(path:'storage/images') }}/" + feature.properties.image + "' width='200' alt=''>" + "<br>" +
+                    "<img src='{{ asset(path: 'storage/images') }}/" + feature.properties.image +
+                    "' width='200' alt=''>" + "<br>" +
+                    "<div class='d-flex justify-content-between mt-4'>" +
+                    "<a href='" + routeedit + "' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i> Edit</a>" +
                     "<form method='POST' action='" + routedelete + "'>" +
-                    '@csrf' + '@method("DELETE")' +
+                    '@csrf' + '@method('DELETE')' +
                     "<button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(`Hapus Polygon?`)'><i class='fa-regular fa-trash-can'></i></button>" +
-                    "</form>";
+                    "</form>" +
+                    "</div>";
                 layer.on({
                     click: function(e) {
                         polygon.bindPopup(popupContent);
@@ -314,5 +335,8 @@
             polygon.addData(data);
             map.addLayer(polygon);
         });
+
+        /* control layer */
+
     </script>
 @endsection
