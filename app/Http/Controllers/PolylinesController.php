@@ -64,7 +64,8 @@ class PolylinesController extends Controller
             'geom' => $request->geom_polyline,
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $name_image
+            'image' => $name_image,
+            'user_id' => auth()->user()->id
         ];
 
         // create data

@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\PointsController;
 use App\Http\Controllers\PolygonsController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PolylinesController;
+use App\Http\Controllers\PublicController;
 
-Route::get('/', [PointsController::class, 'index']) ->name('map');
+Route::get('/map', [PointsController::class, 'index']) ->name('map');
 
 Route::get('/table', [TableController::class, 'index']) ->name('table');
 
@@ -17,11 +18,7 @@ Route::resource('polylines', PolylinesController::class);
 
 Route::resource('polygons', PolygonsController::class);
 
-
-
-
-
-
+Route::get('/', [PublicController::class, 'index']) ->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
